@@ -145,33 +145,35 @@ Features:
 == License | مجوز ==
 GPLv2 or later
 
-# Network Troubleshooter / عیب یاب اتصال اینترنت
+# PCPasokh Internet Repair / عیب یاب و ترمیم اینترنت پاسخگو رایانه
 
-A comprehensive Windows application for diagnosing and fixing internet connection issues with a modern, beautiful interface.
+A comprehensive Windows application for diagnosing and fixing internet connection issues with a modern, beautiful interface. Developed by PCPasokh Computer Center.
 
-یک برنامه جامع ویندوز برای عیب یابی و رفع مشکلات اتصال اینترنت با رابط کاربری مدرن و زیبا.
+یک برنامه جامع ویندوز برای عیب یابی و رفع مشکلات اتصال اینترنت با رابط کاربری مدرن و زیبا. توسعه یافته توسط مرکز پاسخگو رایانه.
 
 ## Features / ویژگی‌ها
 
 ### English
-- **Automatic Network Diagnosis**: Comprehensive testing of internet connectivity
-- **Automatic Issue Resolution**: Attempts to fix common network problems
-- **Modern GUI**: Beautiful, dark-themed interface built with CustomTkinter
-- **Detailed Reporting**: Generates comprehensive diagnostic reports
-- **Email Integration**: Automatically sends reports via email when internet is available
-- **Speed Testing**: Measures download/upload speeds and ping
-- **Network Adapter Monitoring**: Checks status of network adapters
-- **DNS and Network Stack Fixes**: Automatic DNS flush, IP renewal, and network stack reset
+- **Comprehensive Network Diagnosis**: Advanced testing of internet connectivity, DNS servers, proxy settings, firewall status
+- **Professional Repair Tools**: Complete network stack reset, adapter management, TCP/IP troubleshooting
+- **Modern Bilingual Interface**: Beautiful, dark-themed interface with proper Persian text support
+- **Unique System Identification**: Generates unique system ID for tracking and support
+- **FTP Report Upload**: Automatically uploads diagnostic reports to PCPasokh server
+- **Advanced System Information**: Collects detailed hardware, software, and network configuration data
+- **Multiple DNS Testing**: Tests Iranian DNS servers (Shecan, 403) and international servers
+- **Extensible Architecture**: Modular design for easy feature additions
+- **Professional Branding**: PCPasokh Computer Center integration with contact information
 
 ### فارسی
-- **عیب یابی خودکار شبکه**: تست جامع اتصال اینترنت
-- **رفع خودکار مشکلات**: تلاش برای رفع مشکلات رایج شبکه
-- **رابط کاربری مدرن**: رابط زیبا و تیره ساخته شده با CustomTkinter
-- **گزارش دهی دقیق**: تولید گزارش‌های جامع عیب یابی
-- **یکپارچگی ایمیل**: ارسال خودکار گزارش‌ها از طریق ایمیل هنگام دسترسی به اینترنت
-- **تست سرعت**: اندازه‌گیری سرعت دانلود/آپلود و پینگ
-- **نظارت بر آداپتور شبکه**: بررسی وضعیت آداپتورهای شبکه
-- **رفع مشکلات DNS و پشته شبکه**: پاک کردن خودکار DNS، تجدید IP و ریست پشته شبکه
+- **عیب یابی جامع شبکه**: تست پیشرفته اتصال اینترنت، سرورهای DNS، تنظیمات پروکسی، وضعیت فایروال
+- **ابزارهای ترمیم حرفه‌ای**: ریست کامل پشته شبکه، مدیریت آداپتور، عیب یابی TCP/IP
+- **رابط کاربری مدرن دوزبانه**: رابط زیبا و تیره با پشتیبانی صحیح از متن فارسی
+- **شناسایی منحصر بفرد سیستم**: تولید شناسه یکتا برای پیگیری و پشتیبانی
+- **آپلود گزارش FTP**: آپلود خودکار گزارش‌های تشخیصی به سرور پاسخگو رایانه
+- **اطلاعات پیشرفته سیستم**: جمع‌آوری اطلاعات دقیق سخت‌افزار، نرم‌افزار و پیکربندی شبکه
+- **تست چندین DNS**: تست سرورهای DNS ایرانی (شکن، ۴۰۳) و بین‌المللی
+- **معماری قابل توسعه**: طراحی ماژولار برای اضافه کردن آسان ویژگی‌ها
+- **برندینگ حرفه‌ای**: یکپارچگی مرکز پاسخگو رایانه با اطلاعات تماس
 
 ## Requirements / پیش‌نیازها
 
