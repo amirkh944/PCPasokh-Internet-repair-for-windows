@@ -8,15 +8,19 @@ import speedtest
 import time
 import json
 from datetime import datetime
+from system_info import SystemInfoCollector
 
 class NetworkDiagnostics:
     def __init__(self, callback=None):
         self.callback = callback
+        self.system_info = SystemInfoCollector()
         self.results = {
             'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            'system_id': self.system_info.system_id,
             'tests': [],
             'fixes_applied': [],
-            'final_status': 'Unknown'
+            'final_status': 'Unknown',
+            'repair_recommendations': []
         }
     
     def log_result(self, test_name, status, details="", fix_applied=None):
@@ -236,31 +240,288 @@ class NetworkDiagnostics:
         
         return self.results
     
+    def test_dns_servers(self):
+        """Test multiple DNS servers"""
+        dns_servers = [
+            ('Shecan DNS', '178.22.122.100'),
+            ('403 DNS', '10.202.10.202'),
+            ('Google DNS', '8.8.8.8'),
+            ('Cloudflare DNS', '1.1.1.1'),
+            ('OpenDNS', '208.67.222.222')
+        ]
+        
+        working_dns = []
+        for name, dns_ip in dns_servers:
+            try:
+                # Test DNS resolution using specific DNS server
+                import dns.resolver
+                resolver = dns.resolver.Resolver()
+                resolver.nameservers = [dns_ip]
+                resolver.timeout = 5
+                
+                result = resolver.resolve('google.com', 'A')
+                if result:
+                    working_dns.append(name)
+                    self.log_result(f"DNS Test {name}", "✅ PASS", f"Server {dns_ip} working")
+                else:
+                    self.log_result(f"DNS Test {name}", "❌ FAIL", f"Server {dns_ip} not responding")
+                    
+            except Exception as e:
+                self.log_result(f"DNS Test {name}", "❌ FAIL", f"Server {dns_ip} error: {str(e)}")
+        
+        return working_dns
+    
+    def test_proxy_settings(self):
+        """Check for proxy configuration issues"""
+        try:
+            if platform.system() == "Windows":
+                # Check Windows proxy settings
+                result = subprocess.run(['reg', 'query', 
+                                       'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings',
+                                       '/v', 'ProxyEnable'], 
+                                      capture_output=True, text=True)
+                
+                if result.returncode == 0 and '0x1' in result.stdout:
+                    self.log_result("Proxy Check", "⚠️ WARNING", "Proxy is enabled - may affect connectivity")
+                    self.results['repair_recommendations'].append("Check proxy settings in Internet Options")
+                    return True
+                else:
+                    self.log_result("Proxy Check", "✅ PASS", "No proxy configured")
+                    return False
+                    
+        except Exception as e:
+            self.log_result("Proxy Check", "❌ FAIL", f"Error checking proxy: {str(e)}")
+        
+        return False
+    
+    def test_firewall_status(self):
+        """Check Windows Firewall status"""
+        try:
+            if platform.system() == "Windows":
+                result = subprocess.run(['netsh', 'advfirewall', 'show', 'allprofiles'], 
+                                      capture_output=True, text=True)
+                
+                if result.returncode == 0:
+                    if 'State                                 ON' in result.stdout:
+                        self.log_result("Firewall Check", "✅ ACTIVE", "Windows Firewall is enabled")
+                        return True
+                    else:
+                        self.log_result("Firewall Check", "⚠️ WARNING", "Windows Firewall may be disabled")
+                        self.results['repair_recommendations'].append("Enable Windows Firewall for security")
+                        return False
+                        
+        except Exception as e:
+            self.log_result("Firewall Check", "❌ FAIL", f"Error checking firewall: {str(e)}")
+        
+        return False
+    
+    def test_network_drivers(self):
+        """Check network adapter drivers"""
+        try:
+            if platform.system() == "Windows":
+                result = subprocess.run(['wmic', 'path', 'win32_networkadapter', 'where', 
+                                       'netconnectionstatus=2', 'get', 'name,driverversion'], 
+                                      capture_output=True, text=True)
+                
+                if result.returncode == 0:
+                    self.log_result("Network Drivers", "✅ PASS", "Network drivers information collected")
+                    return result.stdout
+                else:
+                    self.log_result("Network Drivers", "❌ FAIL", "Could not retrieve driver information")
+                    
+        except Exception as e:
+            self.log_result("Network Drivers", "❌ FAIL", f"Error checking drivers: {str(e)}")
+        
+        return None
+    
+    def repair_network_issues(self):
+        """Comprehensive network repair function"""
+        repair_success = []
+        
+        if self.callback:
+            self.callback("🔧 شروع ترمیم مشکلات شبکه / Starting network repairs...")
+        
+        # 1. Reset TCP/IP Stack
+        if self.reset_tcpip_stack():
+            repair_success.append("TCP/IP Stack Reset")
+        
+        # 2. Flush DNS
+        if self.flush_dns():
+            repair_success.append("DNS Cache Flush")
+        
+        # 3. Reset Winsock
+        if self.reset_winsock():
+            repair_success.append("Winsock Reset")
+        
+        # 4. Renew IP Address
+        if self.renew_ip_address():
+            repair_success.append("IP Address Renewal")
+        
+        # 5. Reset Network Adapters
+        if self.reset_network_adapters():
+            repair_success.append("Network Adapters Reset")
+        
+        # 6. Clear ARP Cache
+        if self.clear_arp_cache():
+            repair_success.append("ARP Cache Clear")
+        
+        # 7. Reset Internet Explorer Settings (affects some network components)
+        if self.reset_ie_settings():
+            repair_success.append("Internet Explorer Settings Reset")
+        
+        return repair_success
+    
+    def reset_tcpip_stack(self):
+        """Reset TCP/IP Stack"""
+        try:
+            if platform.system() == "Windows":
+                result = subprocess.run(['netsh', 'int', 'ip', 'reset'], 
+                                      capture_output=True, text=True, check=True)
+                self.log_result("TCP/IP Stack Reset", "✅ SUCCESS", "TCP/IP stack reset completed")
+                self.results['fixes_applied'].append("TCP/IP stack reset")
+                return True
+        except subprocess.CalledProcessError as e:
+            self.log_result("TCP/IP Stack Reset", "❌ FAIL", f"Error: {str(e)}")
+        return False
+    
+    def reset_winsock(self):
+        """Reset Winsock"""
+        try:
+            if platform.system() == "Windows":
+                result = subprocess.run(['netsh', 'winsock', 'reset'], 
+                                      capture_output=True, text=True, check=True)
+                self.log_result("Winsock Reset", "✅ SUCCESS", "Winsock reset completed")
+                self.results['fixes_applied'].append("Winsock reset")
+                return True
+        except subprocess.CalledProcessError as e:
+            self.log_result("Winsock Reset", "❌ FAIL", f"Error: {str(e)}")
+        return False
+    
+    def reset_network_adapters(self):
+        """Reset all network adapters"""
+        try:
+            if platform.system() == "Windows":
+                # Disable and enable network adapters
+                result1 = subprocess.run(['wmic', 'path', 'win32_networkadapter', 'where', 
+                                        'netconnectionstatus=2', 'call', 'disable'], 
+                                       capture_output=True, text=True)
+                time.sleep(3)
+                result2 = subprocess.run(['wmic', 'path', 'win32_networkadapter', 'where', 
+                                        'netconnectionstatus=0', 'call', 'enable'], 
+                                       capture_output=True, text=True)
+                
+                self.log_result("Network Adapters Reset", "✅ SUCCESS", "Network adapters reset completed")
+                self.results['fixes_applied'].append("Network adapters reset")
+                return True
+        except Exception as e:
+            self.log_result("Network Adapters Reset", "❌ FAIL", f"Error: {str(e)}")
+        return False
+    
+    def clear_arp_cache(self):
+        """Clear ARP cache"""
+        try:
+            if platform.system() == "Windows":
+                result = subprocess.run(['arp', '-d', '*'], 
+                                      capture_output=True, text=True)
+                self.log_result("ARP Cache Clear", "✅ SUCCESS", "ARP cache cleared")
+                self.results['fixes_applied'].append("ARP cache cleared")
+                return True
+        except Exception as e:
+            self.log_result("ARP Cache Clear", "❌ FAIL", f"Error: {str(e)}")
+        return False
+    
+    def reset_ie_settings(self):
+        """Reset Internet Explorer settings"""
+        try:
+            if platform.system() == "Windows":
+                result = subprocess.run(['rundll32.exe', 'inetcpl.cpl,ClearMyTracksByProcess', '255'], 
+                                      capture_output=True, text=True)
+                self.log_result("IE Settings Reset", "✅ SUCCESS", "Internet Explorer settings reset")
+                self.results['fixes_applied'].append("Internet Explorer settings reset")
+                return True
+        except Exception as e:
+            self.log_result("IE Settings Reset", "❌ FAIL", f"Error: {str(e)}")
+        return False
+    
+    def run_comprehensive_diagnosis(self):
+        """Run comprehensive network diagnosis with all tests"""
+        if self.callback:
+            self.callback("🔍 شروع عیب یابی جامع شبکه / Starting comprehensive network diagnosis...")
+        
+        # Collect system information
+        self.system_info.collect_all_info()
+        
+        # Test basic connectivity
+        has_internet = self.test_basic_connectivity()
+        
+        # Test DNS servers
+        working_dns = self.test_dns_servers()
+        
+        # Check network adapters
+        self.check_network_adapters()
+        
+        # Test ping connectivity
+        self.test_ping_connectivity()
+        
+        # Check proxy settings
+        self.test_proxy_settings()
+        
+        # Check firewall status
+        self.test_firewall_status()
+        
+        # Check network drivers
+        self.test_network_drivers()
+        
+        # If we have internet, test speed
+        if has_internet:
+            self.test_speed()
+            self.results['final_status'] = 'Connected'
+        else:
+            self.results['final_status'] = 'Disconnected'
+            self.results['repair_recommendations'].append("Run network repair to fix connectivity issues")
+        
+        if self.callback:
+            self.callback("✅ عیب یابی جامع تکمیل شد / Comprehensive diagnosis completed!")
+        
+        return self.results
+    
     def generate_report(self):
-        """Generate a detailed text report"""
+        """Generate a detailed text report with system information"""
+        # Get system info header
+        header = self.system_info.generate_report_header()
+        
         report = []
-        report.append("=" * 60)
-        report.append("          NETWORK DIAGNOSTIC REPORT")
-        report.append("=" * 60)
-        report.append(f"Generated: {self.results['timestamp']}")
-        report.append(f"Final Status: {self.results['final_status']}")
+        report.append(header)
+        
+        report.append("نتایج عیب یابی شبکه / NETWORK DIAGNOSTIC RESULTS:")
+        report.append("=" * 80)
+        report.append(f"وضعیت نهایی / Final Status: {self.results['final_status']}")
         report.append("")
         
-        report.append("DIAGNOSTIC TESTS:")
-        report.append("-" * 30)
+        report.append("تست‌های انجام شده / DIAGNOSTIC TESTS:")
+        report.append("-" * 50)
         for test in self.results['tests']:
             report.append(f"[{test['timestamp']}] {test['test']}: {test['status']}")
             if test['details']:
-                report.append(f"    Details: {test['details']}")
+                report.append(f"    جزئیات / Details: {test['details']}")
         
         if self.results['fixes_applied']:
             report.append("")
-            report.append("FIXES APPLIED:")
-            report.append("-" * 30)
+            report.append("اقدامات ترمیمی انجام شده / FIXES APPLIED:")
+            report.append("-" * 50)
             for fix in self.results['fixes_applied']:
                 report.append(f"✓ {fix}")
         
+        if self.results['repair_recommendations']:
+            report.append("")
+            report.append("توصیه‌های ترمیم / REPAIR RECOMMENDATIONS:")
+            report.append("-" * 50)
+            for recommendation in self.results['repair_recommendations']:
+                report.append(f"• {recommendation}")
+        
         report.append("")
-        report.append("=" * 60)
+        report.append("=" * 80)
+        report.append("پایان گزارش / End of Report")
+        report.append("=" * 80)
         
         return "\n".join(report)

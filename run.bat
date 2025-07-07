@@ -1,10 +1,10 @@
 @echo off
-title Network Troubleshooter - عیب یاب اتصال اینترنت
+title PCPasokh Internet Repair - عیب یاب و ترمیم اینترنت پاسخگو رایانه
 echo.
-echo ===============================================
-echo     Network Troubleshooter Starting...
-echo     عیب یاب اتصال اینترنت در حال اجرا...
-echo ===============================================
+echo ================================================================
+echo     PCPasokh Internet Repair Starting...
+echo     عیب یاب و ترمیم اینترنت پاسخگو رایانه در حال اجرا...
+echo ================================================================
 echo.
 
 REM Check if Python is installed
@@ -36,8 +36,8 @@ pip install -r requirements.txt
 
 REM Run the application
 echo.
-echo Starting Network Troubleshooter...
-echo شروع عیب یاب اتصال اینترنت...
+echo Starting PCPasokh Internet Repair...
+echo شروع عیب یاب و ترمیم اینترنت پاسخگو رایانه...
 echo.
 python main.py
 
