@@ -1,150 +1,3 @@
-=== Comment Schema Builder Pro | افزونه اسکیما کامنت پرو ===
-Contributors: amirkh944
-Tags: schema, comment, review, rating, star, rich snippets, article, knowledge graph, comments, dashboard, yoast, اسکیما, امتیاز, دیدگاه, ستاره, ریچ اسنیپت, وردپرس
-Requires at least: 5.6
-Tested up to: 6.5
-Stable tag: 2.3
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
-
-A professional WordPress plugin to automatically generate schema.org Review & Article markup for comments, add star ratings (even without text), show average ratings, visualize ratings statistics in admin dashboard, and seamlessly add average rating to meta description (with full Yoast SEO compatibility).
-
-افزونه وردپرس برای تولید خودکار اسکیما Review و Article برای دیدگاه‌ها، افزودن امتیاز ستاره‌ای (حتی بدون متن)، نمایش میانگین امتیاز، نمودار مدیریتی و افزودن امتیاز به متای توضیحات (سازگار با افزونه یواست).
-
-== Description | توضیحات ==
-
-**English:**
-
-**Comment Schema Builder Pro** adds advanced rich snippets and schema support for comments on posts and custom post types (e.g. posts, software).
-
-Features:
-- Automatic schema.org Review & Article markup for each comment and post.
-- Star rating field in comment form (1-5), with the ability to submit rating without text.
-- All old comments automatically get full rating on activation (if not already rated).
-- Stores user rating with comment.
-- Displays rating stars under comment text (optional).
-- Outputs Review schema with: text, dateCreated, author.name, reviewRating, parentReview, itemReviewed, etc.
-- Supports parent/reply comments (`parentReview`).
-- If no rating is given, a random rating (4~5) is added for schema.
-- Professional settings page with sidebar info, tabbed UI, font Vazirmatn, and Bootstrap RTL.
-- Shortcode `[csb_average_rating]` for showing post average rating (stars + value).
-- Knowledge graph for posts and reviews.
-- Admin dashboard: chart visualization for average and distribution of ratings (Chart.js).
-- Optionally adds average rating to meta description (compatible with Yoast SEO and general meta tags).
-- Fully translatable and extensible.
-
----
-
-**فارسی:**
-
-**افزونه اسکیما کامنت پرو** پیشرفته‌ترین افزونه برای افزودن ریچ اسنیپت و اسکیما به دیدگاه‌های وردپرس (پست و پست‌تایپ سفارشی مانند نرم‌افزار).
-
-ویژگی‌ها:
-- تولید خودکار اسکیما Review و Article برای هر دیدگاه و محتوا.
-- فیلد امتیاز ستاره‌ای (۱ تا ۵) در فرم دیدگاه، با امکان ثبت فقط امتیاز بدون متن.
-- ثبت خودکار امتیاز کامل برای دیدگاه‌های قدیمی هنگام فعال‌سازی (در صورت نداشتن امتیاز).
-- ذخیره امتیاز ثبت شده همراه هر دیدگاه.
-- نمایش ستاره امتیاز زیر متن دیدگاه (اختیاری).
-- خروجی اسکیما شامل: متن، تاریخ، نویسنده، امتیاز، parentReview، itemReviewed و غیره.
-- پشتیبانی کامل از ریپلای و parentReview.
-- اگر امتیاز ثبت نشود، برای اسکیما به صورت رندوم (۴ تا ۵) درج می‌شود.
-- تنظیمات حرفه‌ای با ستون راهنما، تب‌بندی، فونت وزیر و بوت‌استرپ راست‌چین.
-- شورت‌کد `[csb_average_rating]` برای نمایش میانگین امتیاز (ستاره + عدد).
-- گراف دانش برای محتوا و نقدها.
-- داشبورد مدیریتی با نمودار میانگین و توزیع امتیازها (Chart.js).
-- افزودن میانگین امتیاز به متای توضیحات (سازگار با یواست و سایر افزونه‌های سئو).
-- قابلیت ترجمه و توسعه کامل.
-
-== Installation | نصب ==
-
-**English:**
-1. Upload plugin folder to `/wp-content/plugins/comment-schema-builder`.
-2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. On first activation, all old comments without rating will be given full rating for analytics and schema.
-4. Configure options in **Settings > اسکیما کامنت** (Comment Schema).
-5. Add `[csb_average_rating]` shortcode to any post content to display the average rating.
-
-**فارسی:**
-1. پوشه افزونه را در `wp-content/plugins/comment-schema-builder` آپلود کنید.
-2. افزونه را از بخش افزونه‌های وردپرس فعال نمایید.
-3. پس از فعال‌سازی، تمام دیدگاه‌های قبلی فاقد امتیاز، امتیاز کامل خواهند گرفت.
-4. تنظیمات را از مسیر **تنظیمات > اسکیما کامنت** انجام دهید.
-5. برای نمایش میانگین امتیاز هر مطلب، شورت‌کد `[csb_average_rating]` را در محتوا قرار دهید.
-
-== FAQ | سوالات متداول ==
-
-**English:**
-- **Does it support custom post types?**  
-  Yes, simply enable desired post types in the plugin's settings.
-
-- **Can users leave just a rating, without a comment?**  
-  Yes, users can submit only a star rating (no text required).
-
-- **Does it support replies (threaded comments)?**  
-  Yes, parent/reply comments are handled in the schema with `parentReview`.
-
-- **Is the plugin compatible with Google Rich Results?**  
-  Yes, generated JSON-LD is compliant and optimized for Google.
-
-- **How to display average rating?**  
-  Use the `[csb_average_rating]` shortcode in your post/page content.
-
-- **Can I customize the star color?**  
-  Yes, from the plugin settings.
-
-- **Will it add the rating to the meta description?**  
-  Yes, if enabled in settings. If Yoast SEO is active, plugin will auto-integrate and append the rating to the meta description (otherwise, general meta tag will be modified).
-
----
-
-**فارسی:**
-- **آیا افزونه از پست‌تایپ سفارشی پشتیبانی می‌کند؟**  
-  بله، از تنظیمات افزونه می‌توانید پست‌تایپ‌های دلخواه را فعال کنید.
-
-- **آیا امکان ثبت فقط امتیاز (بدون متن) وجود دارد؟**  
-  بله، کاربران می‌توانند فقط امتیاز ستاره‌ای ارسال کنند.
-
-- **آیا افزونه از پاسخ به دیدگاه (ریپلای) پشتیبانی می‌کند؟**  
-  بله، parentReview در اسکیما پشتیبانی می‌شود.
-
-- **آیا افزونه سازگار با نتایج ریچ گوگل است؟**  
-  بله، خروجی JSON-LD کاملاً استاندارد و بهینه برای گوگل است.
-
-- **چطور میانگین امتیاز نمایش داده شود؟**  
-  با افزودن شورت‌کد `[csb_average_rating]` به محتوا.
-
-- **آیا رنگ ستاره‌ها قابل تغییر است؟**  
-  بله، از بخش تنظیمات.
-
-- **آیا امتیاز به متای توضیحات اضافه می‌شود؟**  
-  بله، اگر فعال باشد و یواست نصب باشد به صورت خودکار؛ در غیر این صورت به تگ متای توضیحات افزوده می‌شود.
-
-== Screenshots | اسکرین‌شات‌ها ==
-
-1. Star rating in comment form | فیلد ستاره‌ای در فرم دیدگاه
-2. Schema output (JSON-LD) | خروجی اسکیما
-3. Admin settings page (tabbed, sidebar) | صفحه تنظیمات مدرن و حرفه‌ای
-4. Rating statistics dashboard | نمودار مدیریتی امتیازات
-
-== Changelog | تغییرات ==
-
-= 2.3 =
-* Adds automatic rating for old comments on activation
-* Allows rating-only (no comment text) submissions
-* Optionally integrates average rating into meta description (Yoast compatible)
-* Modern settings UI with sidebar and RTL font
-* All previous features retained
-
-= 2.3 =
-* افزودن امتیاز خودکار به دیدگاه‌های قبلی در اولین فعال‌سازی
-* امکان ثبت فقط امتیاز بدون متن
-* افزودن گزینه نمایش امتیاز در متای توضیحات (سازگار با یواست)
-* طراحی تنظیمات حرفه‌ای با ستون راهنما و فونت وزیر
-* حفظ تمام امکانات قبلی
-
-== License | مجوز ==
-GPLv2 or later
-
 # PCPasokh Internet Repair / عیب یاب و ترمیم اینترنت پاسخگو رایانه
 
 A comprehensive Windows application for diagnosing and fixing internet connection issues with a modern, beautiful interface. Developed by PCPasokh Computer Center.
@@ -211,27 +64,29 @@ python main.py
 ### English
 1. **Start Diagnosis**: Click the "Start Diagnosis" button to begin comprehensive network testing
 2. **Monitor Progress**: Watch real-time progress and results in the text area
-3. **Email Configuration**: Click "Email Config" to set up email reporting
+3. **Repair Issues**: Click "Repair Issues" to fix detected network problems
 4. **Save Reports**: Use "Save Report" to save diagnostic results to a text file
-5. **Automatic Fixes**: The app will automatically attempt to fix detected issues
+5. **Upload Reports**: Send reports directly to PCPasokh server via FTP
 
 ### فارسی
 1. **شروع عیب یابی**: روی دکمه "شروع عیب یابی" کلیک کنید تا تست جامع شبکه آغاز شود
 2. **نظارت بر پیشرفت**: پیشرفت و نتایج لحظه‌ای را در ناحیه متن مشاهده کنید
-3. **تنظیم ایمیل**: روی "Email Config" کلیک کنید تا گزارش‌دهی ایمیل را تنظیم کنید
-4. **ذخیره گزارش‌ها**: از "Save Report" برای ذخیره نتایج عیب یابی در فایل متنی استفاده کنید
-5. **رفع خودکار**: برنامه به طور خودکار سعی می‌کند مشکلات شناسایی شده را رفع کند
+3. **ترمیم مشکلات**: روی "ترمیم مشکلات" کلیک کنید تا مشکلات شبکه برطرف شوند
+4. **ذخیره گزارش‌ها**: از "ذخیره گزارش" برای ذخیره نتایج عیب یابی در فایل متنی استفاده کنید
+5. **ارسال گزارش‌ها**: گزارش‌ها را مستقیماً به سرور پاسخگو رایانه ارسال کنید
 
 ## Diagnostic Tests / تست‌های عیب یابی
 
 The application performs the following tests:
 
-- DNS Resolution Testing
+- DNS Resolution Testing (Multiple servers including Iranian DNS)
 - HTTP Connectivity Testing
-- Ping Tests to Multiple Servers (Google DNS, Cloudflare, Google)
+- Ping Tests to Multiple Servers (Google DNS, Cloudflare, Shecan, 403)
 - Network Adapter Status Check
 - Internet Speed Testing
-- Network Configuration Analysis
+- Proxy Configuration Check
+- Windows Firewall Status
+- Network Driver Information
 
 ## Automatic Fixes / رفع خودکار مشکلات
 
@@ -239,31 +94,35 @@ When issues are detected, the app attempts these fixes:
 
 - DNS Cache Flush (`ipconfig /flushdns`)
 - IP Address Renewal (`ipconfig /release` & `/renew`)
-- Network Stack Reset (`netsh winsock reset`, `netsh int ip reset`)
+- TCP/IP Stack Reset (`netsh int ip reset`)
+- Winsock Reset (`netsh winsock reset`)
+- Network Adapter Reset
+- ARP Cache Clear
+- Internet Explorer Settings Reset
 
-## Email Configuration / تنظیمات ایمیل
+## FTP Configuration / تنظیمات FTP
 
-To enable email reporting:
+The application uploads reports to PCPasokh server:
 
-1. Click "Email Config" button
-2. Enter SMTP server details (default: Gmail)
-3. Enter your email credentials
-4. Enter recipient email address
-5. Test connection and save
-
-**Note**: For Gmail, you may need to use an "App Password" instead of your regular password.
+1. Click "Settings" to configure FTP server details
+2. Default server: ftp.pcpasokh.ir
+3. Test connection before saving
+4. Reports are automatically uploaded with unique system ID
 
 ## File Structure / ساختار فایل‌ها
 
 ```
-network-troubleshooter/
+pcpasokh-internet-repair/
 ├── main.py                 # Main application file
 ├── network_diagnostics.py  # Network diagnostic functions
-├── email_sender.py         # Email functionality
+├── ftp_uploader.py         # FTP upload functionality
+├── system_info.py          # System information collector
 ├── requirements.txt        # Python dependencies
 ├── run.bat                # Windows batch file to run app
 ├── README.md              # This file
-└── email_config.json      # Email configuration (auto-generated)
+├── CHANGELOG.md           # Version history
+├── INSTALL_GUIDE.md       # Detailed installation guide
+└── ftp_config.json        # FTP configuration (auto-generated)
 ```
 
 ## Dependencies / وابستگی‌ها
@@ -273,7 +132,8 @@ network-troubleshooter/
 - `psutil` - System and network monitoring
 - `ping3` - Ping functionality
 - `speedtest-cli` - Internet speed testing
-- Standard Python libraries for email, networking, etc.
+- `dnspython` - Advanced DNS testing
+- `Pillow` - Image support for future enhancements
 
 ## Troubleshooting / عیب یابی
 
@@ -281,28 +141,43 @@ network-troubleshooter/
 
 1. **"Python not found"**: Install Python from python.org and add to PATH
 2. **Permission errors**: Run as Administrator for network fixes
-3. **Email sending fails**: Check firewall settings and use app passwords for Gmail
+3. **FTP upload fails**: Check server settings and internet connectivity
 4. **GUI doesn't appear**: Ensure all dependencies are installed correctly
+5. **Persian text issues**: Application automatically handles proper font rendering
 
-## Screenshots / تصاویر
+## System Requirements / سیستم مورد نیاز
 
-The application features:
-- Dark, modern theme
-- Bilingual interface (English/Persian)
-- Real-time progress monitoring
-- Comprehensive diagnostic results
-- Easy email configuration
+### Minimum Requirements / حداقل سیستم مورد نیاز
+- **OS**: Windows 10 or newer / ویندوز ۱۰ یا جدیدتر
+- **Python**: 3.8 or newer / پایتون ۳.۸ یا جدیدتر
+- **RAM**: 256 MB free memory / ۲۵۶ مگابایت حافظه آزاد
+- **Storage**: 50 MB free space / ۵۰ مگابایت فضای آزاد
+- **Network**: Any network adapter / هر آداپتور شبکه‌ای
+
+### Recommended Requirements / سیستم توصیه شده
+- **OS**: Windows 11 / ویندوز ۱۱
+- **Python**: 3.10 or newer / پایتون ۳.۱۰ یا جدیدتر
+- **RAM**: 512 MB free memory / ۵۱۲ مگابایت حافظه آزاد
+- **Administrator privileges** for network fixes / دسترسی مدیر برای رفع مشکلات شبکه
+
+## Contact Information / اطلاعات تماس
+
+**PCPasokh Computer Center / مرکز پاسخگو رایانه**
+- 📞 Phone: 021-88888888
+- 📧 Email: support@pcpasokh.ir
+- 🌐 Website: www.pcpasokh.ir
 
 ## License / مجوز
 
-This project is open source and available under the MIT License.
+This project is developed by PCPasokh Computer Center for professional use.
 
 ## Support / پشتیبانی
 
-For issues and questions:
-- Check the troubleshooting section above
+For technical support and questions:
+- Contact PCPasokh Computer Center using the information above
 - Ensure you're running as Administrator when needed
 - Verify all dependencies are installed correctly
+- Use the built-in report upload feature to send diagnostic data
 
 ---
 
